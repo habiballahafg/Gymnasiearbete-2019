@@ -5,11 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Grand Hotel, Book your room online!</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Libre+Baskerville|Varela+Round" rel="stylesheet">
     <!-- CSS Assets -->
     <link rel="stylesheet" href="asset/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="asset/main.css" type="text/css">
 </head>
-<body>
+<body class="bg-light">
+    <div class="bg-white">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand order-1" href="#">Grand Hotel</a>
@@ -38,10 +41,15 @@
 </nav>
 <div class="container">
     <header>
-        <h1>Gamla Stan (Old town), The capital of wikings</h1>
-        <button><a href="#">Read more ...</a></button>
+        <h1 class="display-2">Gamla Stan (Old town), The capital of wikings</h1>
+        <button class="btn btn-primary"><a href="#" class="text-white">Read More</a></button>
     </header>
     <hr>
+
+
+    <!--  Begin of the booking section  -->
+
+
     <section>
         <div class="booking mx-auto">
             <form action="#" class="form-group">
@@ -61,8 +69,32 @@
         </div>
     </section>
     <hr>
+
+
+    <!--  End of Booking section  -->
+
+
+    <!-- Begin Explore Stockholm -->
+    <div class="col-md">
+        <article>
+            <h2>Gamla Stan</h2>
+            <img src="img/old-town.jpeg" alt="Old Town(Gamla Stan)" class="img-fluid">
+            <p class="my-4">
+                Gamla Stan är en av Europas största och bäst bevarade medeltida stadskärnor och en av Stockholms främsta
+                attraktioner. Det var här som Stockholm grundades år 1252.
+            </p>
+            <footer><a href="#">Read More</a></footer>
+        </article>
+    </div>
+
+    <hr>
+    <!-- End of Explore Stockholm -->
+
+
+    <!-- Begin of Social media icons -->
+
     <div class="jumbotron">
-        <h2>Follow us on Social Media</h2>
+        <h2 class="social-media">Follow us on Social Media</h2>
         <div class="container">
             <div class="row mx-auto" id="social-media-box">
                 <img class="img-thumbnail" src="img/facebook.svg" alt="Like us on Facebook">
@@ -73,12 +105,19 @@
         </div>
     </div>
     <hr>
-    <footer>
+
+
+    <!--  End of social media icons  -->
+
+
+    <!--  Begin of footer  -->
+    <footer class="col-lg">
         <p>All right reserved, &copy; Copyright 2019</p>
     </footer>
 </div>
 
 
+<!--  End of footer  -->
 
 
 <!-- Begin of the JavaScript Assets -->
@@ -89,8 +128,7 @@
 <!-- End of the JavaScript Assets -->
 
 
-<!--  Beginf of the register form  -->
-
+<!--  Begin of the register form  -->
 
 
 <div class="overlay" id="register-form">
@@ -100,16 +138,17 @@
         <div class="content">
             <div class="container">
                 <div class="form-group">
-                    <form id="registeration-form" action="control/register-form-control.php" method="get">
-                        <input type="text" class="form-control-sm my-2" placeholder="Full Name">
+                            <form id="registeration-form" action="control/register-form-control.php" method="post">
+                        <input type="text" class="form-control-sm my-2" id="user-full-name" placeholder="Full Name">
                         <br>
-                        <input type="email" class="my-2 form-control-sm" placeholder="E-mail Address">
+                        <input type="email" class="my-2 form-control-sm" id="user-email" placeholder="E-mail Address">
                         <br>
-                        <input type="password" class="my-2 form-control-sm" placeholder="Password">
+                        <input type="password" class="my-2 form-control-sm" id="user-password" placeholder="Password">
                         <br>
-                        <input type="tel" class="my-2 form-control-sm" placeholder="Telephone number">
+                        <input type="tel" class="my-2 form-control-sm" id="user-telnr" placeholder="Telephone number">
                         <br>
-                        <input type="checkbox" class="my-2 form-control-sm"><label>I agree with agreement and privacy policy</label>
+                        <input type="checkbox" class="my-2 form-control-sm"><label>I agree with agreement and privacy
+                            policy</label>
                         <br>
                         <input type="submit" id="submit-register" class="my-2 btn btn-primary">
                     </form>
@@ -117,10 +156,10 @@
             </div>
 
 
-<!-- End of the register form  -->
+            <!-- End of the register form  -->
 
 
-<!-- Begin of the login form  -->
+            <!-- Begin of the login form  -->
 
             <div id="login-form" class="overlay">
                 <div class="popup">
@@ -142,7 +181,7 @@
                 </div>
             </div>
 
-<!-- End of the login form  -->
-
+            <!-- End of the login form  -->
+        </div>
 </body>
 </html>

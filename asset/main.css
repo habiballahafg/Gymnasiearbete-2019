@@ -1,3 +1,6 @@
+body{
+    text-align: centers;
+}
 header {
     text-align: center;
     background-color: #6c757d;
@@ -62,5 +65,17 @@ header h1, button {
     overflow: auto;
 }
 #register-form, #login-form {
+    text-align: center;
+}
+.social-media {
+    font-family: 'Indie Flower', cursive !important;
+}
+h1, h2, h3 {
+    font-family: 'Libre Baskerville', serif;
+}
+p {
+    font-family: 'Varela Round', sans-serif;
+}
+article {
     text-align: center;
 }
