@@ -1,5 +1,10 @@
+
+
+
+/* General Settings */
 body{
-    text-align: centers;
+    background-color: #4e555b !important;
+    text-align: center;
 }
 header {
     text-align: center;
@@ -9,6 +14,19 @@ header {
 header h1, button {
     margin: auto;
 }
+h1, h2, h3 {
+    font-family: 'Libre Baskerville', serif;
+}
+p {
+    font-family: 'Varela Round', sans-serif;
+}
+article {
+    text-align: center;
+}
+
+/* My own classes */
+
+
 .login {
     font-size: 0.8em;
 }
@@ -16,6 +34,39 @@ header h1, button {
     width: 70% !important;
     margin: auto !important;
 }
+
+
+.room {
+    padding: 7px;
+    border: 1px solid #f2f2f2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.room > h2 {
+    font-size: 1.2em;
+}
+.room > img {
+    width: 20%;
+    height: 20%;
+    float: left;
+    margin-right: 3%;
+}
+.price-tag {
+    width: 10%;
+    height: 10%;
+    background-color: #ff0000;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+}
+.img-icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+/* PopUp Window for login & Register forms */
+
 .overlay {
     position: fixed;
     top: 0;
@@ -69,13 +120,4 @@ header h1, button {
 }
 .social-media {
     font-family: 'Indie Flower', cursive !important;
-}
-h1, h2, h3 {
-    font-family: 'Libre Baskerville', serif;
-}
-p {
-    font-family: 'Varela Round', sans-serif;
-}
-article {
-    text-align: center;
 }
