@@ -1,13 +1,19 @@
 <?php
 include_once 'header.php';
 if (isset($_SESSION['currentID'])) {
+    $userID = $_SESSION['currentID'];
     /**
      * I create the profile page here if the user is logged in so he/she will have access
      * otherwise the user must be redirected to login page.
      */
+
+
+    /**
+     * Update the name field if it's changed.
+     */
     $fullName = $fullNameError = $successMSG = $errorMSG = "";
     $error = false;
-    if (isset($_POST['fullname'])) {
+    if (isset($_POST['fullNameSubmit'])) {
         $fullName = test_input($_POST['fullname']);
         if (!empty($fullName)) {
             if (strlen($fullName) < 3) {
@@ -77,7 +83,6 @@ if (isset($_SESSION['currentID'])) {
                 </div>
                 <div class="tab-pane fade float-left col-8" id="list-messages" role="tabpanel"
                      aria-labelledby="list-messages-list">
-                    3...
                     <h2>Update your settings</h2>
                     <table class="table">
                         <tbody>
@@ -89,12 +94,14 @@ if (isset($_SESSION['currentID'])) {
                             if ($result->num_rows != 0){
                             while ($rows = $result->fetch_assoc()){
                             ?>
+                            <form method="post" action="profile.php">
                             <th scope="row">Your name</th>
                             <td><input type="text" class=" form-control-sm" name="fullname"
                                        value="<?php echo $rows['fullname'] ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
-                                <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
+                                <input type="submit" name="fullNameSubmit" class="btn btn-primary confirm-icon"></td>
                             <td class="text text-danger"><?php echo $fullNameError ?></td>
+                            </form>
                         </tr>
                         <tr>
                             <th scope="row">Your e-mail address</th>

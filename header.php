@@ -1,16 +1,22 @@
 <?php include_once 'function/functions.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Grand Hotel, Book your room online!</title>
+    <title>Book your hotel online at Grand hotel</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Libre+Baskerville|Varela+Round" rel="stylesheet">
     <!-- CSS Assets -->
     <link rel="stylesheet" href="asset/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="asset/main.css" type="text/css">
+    <script language="JavaScript">
+    $('.carousel').carousel({
+  interval: 2000
+})
+    </script>
 </head>
 <body class="bg-dark">
 <div class="bg-light col-md-9 mx-auto">
@@ -29,7 +35,8 @@
                         $fullName = $rows['fullname'];
                         ?>
                         <div class="dropdown order-2">
-                            <button class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton"
+                            <button class="btn btn-secondary dropdown-toggle float-right" type="button"
+                                    id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span><img class="profile-img" src="<?php echo $rows['image'] ?>"> </span>
                                 <?php echo $fullName ?>
@@ -39,7 +46,7 @@
                                 <a class="dropdown-item" href="logout.php">Log out</a>
                             </div>
                         </div>
-            <?php
+                        <?php
                     }
                 }
 
@@ -59,7 +66,7 @@
                         <a class="nav-link" href="rooms.php">Rooms</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Explore Stockholm</a>
+                        <a class="nav-link" href="explore.php">Explore Stockholm</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="contact-us.php">Contact US</a>
@@ -70,7 +77,31 @@
     </nav>
     <div class="container">
         <header>
-            <h1 class="display-2">Gamla Stan (Old town), The capital of vikings</h1>
-            <button class="btn btn-primary"><a href="#" class="text-white">Read More</a></button>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="img/slider01.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/slider02.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/slider03.jpg" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
         </header>
         <hr>

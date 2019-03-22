@@ -1,4 +1,4 @@
-<?php include_once 'header.php';
+<?php include 'header.php';
 $email = $password = "";
 $emailError = $passwordError = "";
 $error = false;
@@ -6,7 +6,6 @@ $rememberME = "";
 if (isset($_POST['submit'])) {
     $password = test_input($_POST['user-password']);
     $email = test_input($_POST['user-email']);
-    $rememberME = test_input($_POST['remember-me']);
 
     /**
      * check the password field
@@ -66,10 +65,6 @@ if (isset($_POST['submit'])) {
                 <label for="user-password" class="label-info">Password:</label>
                 <label for="user-email" class="text text-danger"><?php echo $passwordError ?></label>
                 <input type="password" id="user-password" name="user-password" class="form-control">
-                <input class="form-check-input" type="checkbox" name="remember-me" value="remember-me" id="remember-me">
-                <label class="form-check-label" for="remember-me">
-                    Remember me?
-                </label>
                 <br>
                 <input type="submit" class="btn btn-primary" name="submit" value="Log In">
             </form>

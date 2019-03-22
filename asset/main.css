@@ -8,7 +8,9 @@ body{
 header {
     text-align: center;
     background-color: #6c757d;
-    min-height: 450px;
+}
+header img {
+    max-height: 300px;
 }
 header h1, button {
     margin: auto;
@@ -65,7 +67,13 @@ article {
     display: inline-block;
 }
 /* PopUp Window for login & Register forms */
-
+.article:hover {
+    border: solid #4db8ff;
+    transition: width 2s;
+}
+.img-text {
+    padding: 5px 10px 30px 10px;
+}
 .overlay {
     position: fixed;
     top: 0;
@@ -191,6 +199,10 @@ Modal Images
 
 .cursor {
     cursor: pointer;
+}
+
+.img-social-media:hover {
+    border: solid #3399ff;
 }
 
 /* Next & previous buttons */

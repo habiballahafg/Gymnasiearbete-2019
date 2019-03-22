@@ -4,7 +4,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "gyar";
-
+$conn = "";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -44,7 +44,7 @@ function redirectLink ($link, $sessionName, $Message){
  * obs the order number is not case sensitive
  */
 
-function generateRandomString($length = 6) {
+function generateRandomString($length) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -52,6 +52,23 @@ function generateRandomString($length = 6) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+/**
+ * Get the title from databse and print it out on web page
+ */
+
+function getTitle () {
+    $titleSQL = "SELECT title FROM generalsettings";
+    $titleResult  = $conn->query($titleSQL);
+
+    if ($titleResult->num_rows != 0) {
+        while ($rows = $titleResult->fetch_assoc()){
+           $title =  $rows['title'];
+           echo $title;
+        }
+    }
+
 }
 
 ?>

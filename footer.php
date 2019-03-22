@@ -1,6 +1,6 @@
 <!--  Begin of footer  -->
 <hr>
-<footer class="col-lg">
+<footer class="col-lg text-center">
     <p>All right reserved, &copy; Copyright 2019</p>
 </footer>
 </div>
