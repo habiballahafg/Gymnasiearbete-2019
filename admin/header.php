@@ -133,7 +133,7 @@ if (isset($_SESSION['currentID'])) {
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                                    <?php 
+                                    <?php
 
                                     ?>
                     </li>
@@ -174,7 +174,9 @@ if (isset($_SESSION['currentID'])) {
                     <li class="sidebar-item"><a class="sidebar-link "
                                                 href="settings.php" aria-expanded="false"><i
                                     class="mdi mdi-receipt"></i><span class="hide-menu">Settings </span></a>
-                       
+                                    <li class="sidebar-item"><a class="sidebar-link "
+                                                href="logout.php" aria-expanded="false"><i
+                                    class="mdi mdi-receipt"></i><span class="hide-menu">Logout </span></a>
                     </li>
                     
                 </ul>
