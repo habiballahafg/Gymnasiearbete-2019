@@ -27,7 +27,7 @@ if ($generalResult->num_rows != 0) {
 <div class="bg-light col-md-9 mx-auto">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand order-1" href="#">Grand Hotel</a>
+            <a class="navbar-brand order-1" href="index.php">Grand Hotel</a>
             <?php
 
             if (isset($_SESSION["currentID"])) {
