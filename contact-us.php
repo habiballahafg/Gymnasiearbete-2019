@@ -71,7 +71,7 @@
                         </form>
 
                         <div class="text-center text-md-left">
-                            <a class="btn btn-primary px-auto btn-lg"
+                            <a class="btn btn-primary text-white px-auto btn-lg"
                                onclick="document.getElementById('contact-form').submit();">Send</a>
                         </div>
                         <div class="status"></div>
