@@ -20,7 +20,7 @@ include_once 'header.php';
                 <input type="date" name="from-date" id="from-date" class="form-control-sm mx-2">
                 <label for="to-date" class="col-form-label-sm">Check out</label>
                 <input type="date" name="to-date" id="to-date" class="form-control-sm mx-2">
-                <input type="submit" id="user-submit" class="btn btn-primary mx-2">
+                <a href="booking.php" target="_blank" class="btn btn-primary text-white">Submit</a>
             </form>
         </div>
     </section>
@@ -40,7 +40,7 @@ include_once 'header.php';
                 ?>
                 <article>
                     <h2><?php echo $rows['title'] ?></h2>
-                    <img src="<?php echo $rows['img'] ?>" alt="<?php echo $rows['title'] ?>">
+                    <img src="<?php echo $rows['img'] ?>" class="img-fluid" alt="<?php echo $rows['title'] ?>">
                     <p class="font-weight-normal px-4 py-2"><?php echo $rows['post'] ?></p>
                     <footer class="float-left   x   ">
                         <button class="btn btn-primary text-white"><p class="float-left">Published

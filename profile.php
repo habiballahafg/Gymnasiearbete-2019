@@ -12,30 +12,143 @@ if (isset($_SESSION['currentID'])) {
     /**
      * Update the name field if it's changed.
      */
-    $fullName = $fullNameError = $successMSG = $errorMSG = "";
+    $fullName = $email = $telnr = $password = $address = $address2 = $city = $zip = $country = $agreement = "";
+    $fullNameError = $emailError = $telnrError = $passwordError = $addressError = $address2Error = $cityError = $zipError = $countryError = $agreementError = "";
     $error = false;
-    if (isset($_POST['fullNameSubmit'])) {
+    $succedMSG = $errorMSG = "";
+    $sql = "";
+    if (isset($_POST['submit'])) {
+
+        /**
+         * Securing the input
+         */
         $fullName = test_input($_POST['fullname']);
-        if (!empty($fullName)) {
+        $email = test_input($_POST['email']);
+        $telnr = test_input($_POST['telnr']);
+        $password = test_input($_POST['password']);
+        $address = test_input($_POST['address']);
+        $address2 = test_input($_POST['address2']);
+        $city = test_input($_POST['city']);
+        $zip = test_input($_POST['zip']);
+        $country = test_input($_POST['country']);
+        $agreement = test_input($_POST['agreement']);
+
+        /**
+         * Check the field name:
+         */
+        if (isset($fullName)) {
+            if (empty($fullName)) {
+                $error = true;
+                $fullNameError = "The full name field cannot be left empty";
+            }
             if (strlen($fullName) < 3) {
                 $error = true;
                 $fullNameError = "The full name field cannot be less than 3 characters";
             }
             if (!preg_match("/^[a-zA-Z ]*$/", $fullName)) {
                 $error = true;
-                $fullNameError = "The name field can only include letters.";
+                $fullNameError = "Only letters are allowed.";
+            }
+
+        }
+        /**
+         * Check the email address field:
+         */
+        $emailSQL = "SELECT email FROM user WHERE email = '$email'";
+        $emailRESULT = $conn->query($emailSQL);
+        if ($emailRESULT->num_rows > 0) {
+            $error = true;
+            $emailError = "the email is already in used, please choose another one.";
+        }
+        if (!empty($email)) {
+
+            if (empty($email)) {
+                $error = true;
+                $emailError = "The email field must be filled.";
+            }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $error = true;
+                $emailError = "The email address you've entered is not legal.";
             }
         } else {
             $error = true;
-            $fullNameError = "Please fill in the name field.";
+            $emailError = "The email field cannot be left empty";
         }
-        if ($error == false) {
-            $fullNameSQL = "UPDATE user SET fullname ='$fullName' WHERE id='$userID'";
-            if ($conn->query($fullNameSQL) === true) {
-                $successMSG = "The name has been updated successfully.";
-            } else {
-                $errorMSG = "there was a problem by updating the name, please try again later or contact us";
+        /**
+         * Check the telnr field:
+         */
+        if (!empty($telnr)) {
+            if (strlen($telnr) < 6) {
+                $error = true;
+                $telnrError = "The telephone number is not valid.";
             }
+        } else {
+            $error = true;
+            $telnrError = "The telepgone number field cannot be left empty";
+        }
+        /**
+         * Check the password field:
+         */
+        if (!empty($password)) {
+            if (strlen($password) < 8) {
+                $error = true;
+                $passwordError = "The password cannot be less than 8 characters";
+            }
+
+        }
+        /**
+         * check the address field:
+         */
+        if (!empty($address)) {
+            if (strlen($address) < 5) {
+                $error = true;
+                $addressError = "The address field canno be less than 5 characters";
+            }
+        } else {
+            $error = true;
+            $addressError = "The address field cannot be left empty";
+        }
+        /**
+         * Check the city field:
+         */
+        if (empty($city)) {
+            $error = true;
+            $cityError = "The city name cannot be lefr empty.";
+        }
+        /**
+         * Check the zip code:
+         */
+        if (empty($zip)) {
+            $error = true;
+            $zipError = "The postal code is required";
+        }
+        /**
+         * Check the agreement
+         */
+        if (empty($agreement)) {
+            $error = true;
+            $agreementError = "The agreement must be checked";
+        }
+
+        /**
+         * check all errors are corrected now and submit them / insert them into the database
+         * Table: user
+         */
+        if ($error === false) {
+            $password = md5($password);
+            $sql = "UPDATE user SET fullname = '$fullName', email = '$email', telnr= '$telnr', address= '$address', 
+            address2= '$address2', zip ='$zip', city = '$city', country='$country' WHERE id='$userID'";
+            if ($conn->query($sql) === true) {
+                $succedMSG = "Your information has been updated successfully.";
+            } else {
+                $errorMSGr = "Error: " . $sql . "<br>" . mysqli_error($conn);
+                if ($conn->connect_errno) {
+
+                    print_r($conn->connect_error);
+
+                }
+            }
+
         }
     }
 
@@ -55,42 +168,74 @@ if (isset($_SESSION['currentID'])) {
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <div class="card" style="width: 18rem;">
+                        <?php
+                        $userSQL = "SELECT * FROM user WHERE id='$userID'";
+                        $userResult = $conn->query($userSQL);
+                        if ($userResult->num_rows != 0) {
+                        while ($userRows = $userResult->fetch_assoc()) {
+                        ?>
                         <img class="card-img-top" src="img-profile/profile.jpg" alt="Card image cap">
 
                         <div class="card-body">
-                            <h5 class="card-title"></h5>
+                            <h5 class="card-title"><?php echo $userRows['fullname'] ?></h5>
                             <p class="card-text">Lives
-                                at </p>
+                                at <?php echo $userRows['address'] . " " . $userRows['address2'] ?> </p>
+                            <?php
+                            }
+                            }
+                            ?>
+
                             <a href="explore.php" class="btn btn-primary">Explore Stockholm</a>
                         </div>
                     </div>
 
                 </div>
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                    <?php
+                    $orderSQL = "SELECT * FROM guest WHERE userID ='$userID'";
+                    $orderResult = $conn->query($orderSQL);
+                    if ($orderResult->num_rows != 0) {
+                        while ($orderRows = $orderResult->fetch_assoc()) {
+                            ?>
 
-                    <div class="jumbotron">
-                        <div class="row">
 
-                            <div class="col-3">
+                            <div class="jumbotron">
+                                <div class="row">
 
-                                        <img class="img-fluid" src="img/single-bed-1.jpg">
-                                        <div class="col-9">
-                                            <h1>Single BEd</h1>
-                                        </div>
+                                    <div class="col-3">
+                                        <?php
+                                        $roomID = $orderRows['roomID'];
+                                        $roomSQL = "SELECT * FROM room WHERE id='$roomID'";
+                                        $roomResult = $conn->query($roomSQL);
+                                        if ($roomResult->num_rows != 0) {
+                                        while ($roomRows = $roomResult->fetch_assoc()) {
+                                        ?>
+                                        <img class="img-fluid" src="<?php echo $roomRows['image'] ?>">
+                                    </div>
+                                    <div class="col-9">
+                                        <h1><?php echo $roomRows['name'] ?></h1>
 
+                                        <?php
+                                        }
+                                        }
+                                        ?>
 
                                         <ul>
-                                            <li>Check In: 2019</li>
-                                            <li>Check Out: 2019</li>
-                                            <li>Order number: 123456</li>
+                                            <li>Check In: <?php echo $orderRows['checkin'] ?></li>
+                                            <li>Check Out: <?php echo $orderRows['checkout'] ?></li>
+                                            <li>Order number: <strong><?php echo $orderRows['userOrder'] ?></strong>            </li>
                                         </ul>
-
-                                <p>Remember that the check in time is between 12-16.</p>
+                                        <p>Remember that the check in time is between 12-16.</p>
+                                        <button class="btn btn-primary"><a href="deleteorder.php?id=<?php echo $orderRows['id'] ?>" class="text-white">Cancel</a> </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
 
                 <div class="tab-pane fade float-left col-8" id="list-messages" role="tabpanel"
                      aria-labelledby="list-messages-list">
@@ -117,10 +262,12 @@ if (isset($_SESSION['currentID'])) {
                         </tr>
                         <tr>
                             <th scope="row">Your e-mail address</th>
-                            <td><input type="email" class="form-control-sm" value="<?php echo $rows['email']; ?>"></td>
+                            <td><input type="email" class="form-control-sm" value="<?php echo $rows['email']; ?>"
+                                       name="email"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
+
                         <tr>
                             <th scope="row">Your telephone number</th>
                             <td><input type="text" name="telnr" class="form-control-sm"
@@ -144,27 +291,27 @@ if (isset($_SESSION['currentID'])) {
                         </tr>
                         <tr>
                             <th scope="row">City</th>
-                            <td><input type="text" name="telnr" class="form-control-sm"
+                            <td><input type="text" name="city" class="form-control-sm"
                                        value="<?php echo $rows['city']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">Zip</th>
-                            <td><input type="text" name="telnr" class="form-control-sm"
+                            <td><input type="text" name="zip" class="form-control-sm"
                                        value="<?php echo $rows['zip']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">Your telephone number</th>
-                            <td><input type="text" name="telnr" class="form-control-sm"
-                                       value="<?php echo $rows['telnr']; ?>"></td>
+                            <td><input type="text" name="country" class="form-control-sm"
+                                       value="<?php echo $rows['country']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
-                            <td><input type="submit" class="btn btn-primary" name="submit"> </td>
+                            <td><input type="submit" class="btn btn-primary" name="submit"></td>
                         </tr>
                         </form>
                         <?php

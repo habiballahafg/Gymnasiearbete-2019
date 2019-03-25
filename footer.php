@@ -13,10 +13,10 @@
             <div class="col-md-6 mb-4">
                 <h4>Social media:</h4>
                <ul>
-                   <li>Facebook</li>
-                   <li>Instagram</li>
-                   <li>Twitter</li>
-                   <li>Youtube</li>
+                   <li class="outlink"><a href="#" target="_blank">Facebook</a></li>
+                   <li class="outlink"><a href="#" target="_blank">Instagram</a></li>
+                   <li class="outlink"><a href="#" target="_blank">Twitter</a></li>
+                   <li class="outlink"><a href="#" target="_blank">Youtube</a></li>
                </ul>
 
             </div>

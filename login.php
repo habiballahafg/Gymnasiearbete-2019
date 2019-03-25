@@ -52,24 +52,32 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-?>
 
-<div class="container">
-    <div class="row">
-        <div class="control-group mx-auto">
-            <h1>Login</h1>
-            <form action="login.php" method="post">
-                <label for="user-email" class="label-info">E-mail Address:</label>
-                <label for="user-email" class="text text-danger"><?php echo $emailError ?></label>
-                <input type="email" class="form-control" id="user-email" name="user-email">
-                <label for="user-password" class="label-info">Password:</label>
-                <label for="user-email" class="text text-danger"><?php echo $passwordError ?></label>
-                <input type="password" id="user-password" name="user-password" class="form-control">
-                <br>
-                <input type="submit" class="btn btn-primary" name="submit" value="Log In">
-            </form>
+if (!isset($_SESSION['currentID'])) {
+    ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="control-group mx-auto">
+                <h1>Login</h1>
+                <form action="login.php" method="post">
+                    <label for="user-email" class="label-info">E-mail Address:</label>
+                    <label for="user-email" class="text text-danger"><?php echo $emailError ?></label>
+                    <input type="email" class="form-control" id="user-email" name="user-email">
+                    <label for="user-password" class="label-info">Password:</label>
+                    <label for="user-email" class="text text-danger"><?php echo $passwordError ?></label>
+                    <input type="password" id="user-password" name="user-password" class="form-control">
+                    <br>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Log In">
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+<?php
+} else {
+    echo "Hello and welcome, please visit your profile.";
+}
+?>
 
 <?php include_once 'footer.php'; ?>

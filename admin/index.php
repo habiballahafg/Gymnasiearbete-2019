@@ -16,7 +16,7 @@
                                     <h5 class="card-subtitle">Overview of the most recent order</h5>
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title">Basic Datatable</h5>
+
                                             <div class="table-responsive">
                                                 <table id="zero_config" class="table table-striped table-bordered">
                                                     <thead>
@@ -40,10 +40,38 @@
                                                             while ($rows = $result->fetch_assoc()) {
                                                                 ?>
                                                                 <td><?php echo $rows['id'] ?></td>
-                                                                <td><?php echo $rows['username'] ?></td>
+                                                                <td><?php
+                                                                    $userID = $rows['userID'];
+                                                                    $userSQL = "SELECT * FROM user WHERE id ='$userID'";
+                                                                    $userResult = $conn->query($userSQL);
+                                                                    if ($userResult->num_rows != 0) {
+                                                                        while ($userRows = $userResult->fetch_assoc()) {
+                                                                         echo $userRows['fullname'];
+                                                                        }
+                                                                    }
+                                                                    ?></td>
                                                                 <td><?php echo $rows['userOrder'] ?>
-                                                                <td> <?php echo $rows['roomnumber'] ?> </td>
-                                                                <td><?php echo $rows['roomtype'] ?></td>
+                                                                <td>Undefined</td>
+                                                                <td><?php
+                                                                        $roomID = $rows['roomID'];
+                                                                        switch ($roomID) {
+                                                                            case 1:
+                                                                                echo "Single Bed";
+                                                                                break;
+                                                                            case 2:
+                                                                                echo "Double Bed";
+                                                                                break;
+                                                                            case 3:
+                                                                                echo "Triple Bed";
+                                                                                break;
+                                                                            case 4:
+                                                                                echo "Apartment";
+                                                                                break;
+                                                                            default:
+                                                                                echo "Undefined";
+                                                                                break;
+                                                                        }
+                                                                    ?></td>
                                                                 <td><?php echo $rows['checkin'] ?></td>
                                                                 <td><?php echo $rows['checkout'] ?></td>
                                                                 <td>
