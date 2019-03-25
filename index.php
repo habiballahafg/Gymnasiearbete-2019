@@ -38,21 +38,22 @@ include_once 'header.php';
         if ($result->num_rows != 0) {
             while ($rows = $result->fetch_assoc()) {
                 ?>
-                    <article>
-                        <h2><?php echo $rows['title'] ?></h2>
-                        <img src="<?php echo $rows['img'] ?>" alt="<?php echo $rows['title']?>">
-                        <p class="font-weight-normal px-4 py-2"><?php echo $rows['post'] ?></p>
-                        <footer class="float-left   x   ">
-                            <button class="btn btn-primary text-white"><p class="float-left">Published on <?php echo $rows['articledate'] ?></p></button>
-                        </footer>
-                    </article>
+                <article>
+                    <h2><?php echo $rows['title'] ?></h2>
+                    <img src="<?php echo $rows['img'] ?>" alt="<?php echo $rows['title'] ?>">
+                    <p class="font-weight-normal px-4 py-2"><?php echo $rows['post'] ?></p>
+                    <footer class="float-left   x   ">
+                        <button class="btn btn-primary text-white"><p class="float-left">Published
+                                on <?php echo $rows['articledate'] ?></p></button>
+                    </footer>
+                </article>
                 <?php
             }
         }
         ?>
     </div>
-<br>
-<br>
+    <br>
+    <br>
     <hr>
     <!-- End of Explore Stockholm -->
 
@@ -60,14 +61,18 @@ include_once 'header.php';
     <!-- Begin of Social media icons -->
 
     <div class="jumbotron jumbotron-fluid px-4">
-        <h2 class="social-media mg-4 text-center">Follow us on Social Media</h2>
-        
-            <div class="row mx-auto text-center px-4" id="social-media-box">
-                <img class="img-thumbnail img-social-media" src="img/facebook.svg" alt="Like us on Facebook">
-                <img class="img-thumbnail img-social-media" src="img/Instagram.svg" alt="Follow us on Instagram">
-                <img class="img-thumbnail img-social-media" src="img/Youtube.svg" alt="Subscribe us on Youtube">
+        <h2 class="social-media-font text-center">Follow us on Social Media</h2>
+        <div class="row">
+            <div class="mx-auto text-center " id="social-media-box">
+                <img class="social-media" src="img/facebook.svg"
+                     alt="Follow us on Instagram">
+                <img class="social-media" src="img/Instagram.svg"
+                     alt="Follow us on Instagram">
+                <img class="social-media"
+                     src="img/Youtube.svg"
+                     alt="Subscribe us on Youtube">
             </div>
-    
+        </div>
     </div>
     <hr>
 

@@ -1,27 +1,9 @@
 <?php
 
-include_once 'header.php';
+include 'header.php';
 $roomName = $roomID = "";
-$currentID = $_SESSION['currentID'];
-if (isset($_GET["id"])) {
-    $roomID = $_GET["id"];
-    switch ($roomID) {
-        case 1:
-            $roomName = 'single bed room';
-            break;
-        case 2:
-            $roomName = 'double bed room';
-            break;
-        case 3:
-            $roomName = 'tripple bed room';
-            break;
-        case 4:
-            $roomName = 'apartment';
-            break;
-        default:
-            $roomName = false;
-    }
-}
+if (isset($_SESSION['currentID'])) { $currentID = test_input($_SESSION['currentID']); }
+
 
 
 
@@ -34,6 +16,7 @@ if (isset($_GET["id"])) {
 $checkin = $checkout = "";
 $checkinError = $checkoutError = "";
 $subtractingDates = $subtractingError = "";
+$selectedRoom = "";
 $error = false;
 $userOrder = "";
 $succesMSG = $errorMSG = "";
@@ -46,6 +29,7 @@ if (isset($_POST['submit'])) {
      */
     $checkin = test_input($_POST['checkin']);
     $checkout = test_input($_POST['checkout']);
+    $selectedRoom = test_input($_POST['select-room']);
 
     /**
      * check the checkin date input
@@ -76,19 +60,22 @@ if (isset($_POST['submit'])) {
      * We need to check if the check out date is bigger than checkin date, we do it by subtracting these 2 days
      * and if the result is minus so the error is true
      */
-    $subtractingDates = $checkout - $checkin;
+    $subtractingDates = (strtotime($checkout) - strtotime($checkin)) / 86400;
     if ($subtractingDates <= 0) {
         $error = true;
         $subtractingError = "The check out day must be bigger than check in date";
+    } else if ($subtractingDates == 0){
+        $error = true;
+        $subtractingError = "Difference between check in and out dates must be at least 1 day.";
     }
 
     if ($error === false) {
-            $bookSql = "INSERT INTO guest(userID, roomID, userOrder, checkin, checkout, progress, roomnumber, username, roomtype)" . "  VALUES
-    ('$currentID' , '$roomID' , '$userOrder' , '$checkin' , '$checkout' , '1' , '0' , '$username' , '$roomName')";
         $userOrder = generateRandomString(6);
+        $bookSql = "INSERT INTO guest(userID, roomID, userOrder, checkin, checkout, progress)" . "VALUES('$currentID', '$selectedRoom', '$userOrder', '$checkin', '$checkout', 0)";
         if ($conn->query($bookSql) === true) {
-            $_SESSION['userOrder'] = $userOrder;
-            header("Location: profile.php");
+            $succesMSG = "We have registered your order successfully.";
+        } else {
+            $errorMSG = "There is a problem with placing your order, please contact us" . $conn->error;
         }
     }
 }
@@ -105,7 +92,13 @@ if (isset($_POST['submit'])) {
                 ?>
                 <div class="form-group">
                     <form method="post" action="booking.php">
-                
+                        <label class="col-form-label">Select a room</label>
+                        <select class="custom-select" name="select-room">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
                         <label class="text text-danger"><?php echo $checkinError ?></label>
                         <label for="user-checkin" class="label-info">Check In:</label>
                         <input type="date" class="form-control my-2" name="checkin" id="user-checkin">

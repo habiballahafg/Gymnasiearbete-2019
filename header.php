@@ -1,12 +1,17 @@
-<?php include_once 'function/functions.php'; ?>
+<?php include_once 'function/functions.php';
+$generalSQL = "SELECT * FROM generalsettings";
+$generalResult = $conn->query($generalSQL);
 
+if ($generalResult->num_rows != 0) {
+    while ($generalRows = $generalResult->fetch_assoc()) {
+        ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $generalRows['language'] ?>">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Book your hotel online at Grand hotel</title>
+    <title><?php echo $generalRows['title'] ?></title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Libre+Baskerville|Varela+Round" rel="stylesheet">
     <!-- CSS Assets -->
@@ -105,3 +110,4 @@
 </div>
         </header>
         <hr>
+        <?php  }} ?>

@@ -1,5 +1,6 @@
 <?php
 include_once 'header.php';
+$userID = "";
 if (isset($_SESSION['currentID'])) {
     $userID = $_SESSION['currentID'];
     /**
@@ -20,7 +21,7 @@ if (isset($_SESSION['currentID'])) {
                 $error = true;
                 $fullNameError = "The full name field cannot be less than 3 characters";
             }
-            if (!preg_match("/^[a-zA-Z ]*$/", $fullName)){
+            if (!preg_match("/^[a-zA-Z ]*$/", $fullName)) {
                 $error = true;
                 $fullNameError = "The name field can only include letters.";
             }
@@ -31,7 +32,7 @@ if (isset($_SESSION['currentID'])) {
         if ($error == false) {
             $fullNameSQL = "UPDATE user SET fullname ='$fullName' WHERE id='$userID'";
             if ($conn->query($fullNameSQL) === true) {
-                $successMSG =  "The name has been updated successfully.";
+                $successMSG = "The name has been updated successfully.";
             } else {
                 $errorMSG = "there was a problem by updating the name, please try again later or contact us";
             }
@@ -55,32 +56,42 @@ if (isset($_SESSION['currentID'])) {
                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="img-profile/profile.jpg" alt="Card image cap">
+
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">Lives
+                                at </p>
+                            <a href="explore.php" class="btn btn-primary">Explore Stockholm</a>
                         </div>
                     </div>
+
                 </div>
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+
                     <div class="jumbotron">
                         <div class="row">
+
                             <div class="col-3">
-                                <img class="img-fluid" src="img/single-bed-1.jpg">
-                            </div>
-                            <div class="col-9">
-                                <h1>Single bedroom</h1>
-                                <ul>
-                                    <li>Check In: 2019-05-04</li>
-                                    <li>Check Out: 2019-05-10</li>
-                                    <li>Order number: 29476</li>
-                                </ul>
-                                <p>Remember that the check in time is betwenn 12-16.</p>
+
+                                        <img class="img-fluid" src="img/single-bed-1.jpg">
+                                        <div class="col-9">
+                                            <h1>Single BEd</h1>
+                                        </div>
+
+
+                                        <ul>
+                                            <li>Check In: 2019</li>
+                                            <li>Check Out: 2019</li>
+                                            <li>Order number: 123456</li>
+                                        </ul>
+
+                                <p>Remember that the check in time is between 12-16.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="tab-pane fade float-left col-8" id="list-messages" role="tabpanel"
                      aria-labelledby="list-messages-list">
                     <h2>Update your settings</h2>
@@ -95,13 +106,14 @@ if (isset($_SESSION['currentID'])) {
                             while ($rows = $result->fetch_assoc()){
                             ?>
                             <form method="post" action="profile.php">
-                            <th scope="row">Your name</th>
-                            <td><input type="text" class=" form-control-sm" name="fullname"
-                                       value="<?php echo $rows['fullname'] ?>"></td>
-                            <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
-                                <input type="submit" name="fullNameSubmit" class="btn btn-primary confirm-icon"></td>
-                            <td class="text text-danger"><?php echo $fullNameError ?></td>
-                            </form>
+                                <th scope="row">Your name</th>
+                                <td><input type="text" class=" form-control-sm" name="fullname"
+                                           value="<?php echo $rows['fullname'] ?>"></td>
+                                <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
+                                    <input type="submit" name="fullNameSubmit" class="btn btn-primary confirm-icon">
+                                </td>
+                                <td class="text text-danger"><?php echo $fullNameError ?></td>
+
                         </tr>
                         <tr>
                             <th scope="row">Your e-mail address</th>
@@ -111,40 +123,50 @@ if (isset($_SESSION['currentID'])) {
                         </tr>
                         <tr>
                             <th scope="row">Your telephone number</th>
-                            <td><input type="text" name="telnr" class="form-control-sm" value="<?php echo $rows['telnr']; ?>"></td>
+                            <td><input type="text" name="telnr" class="form-control-sm"
+                                       value="<?php echo $rows['telnr']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">Address</th>
-                            <td><input type="text" name="address" class="form-control-sm" value="<?php echo $rows['address']; ?>"></td>
+                            <td><input type="text" name="address" class="form-control-sm"
+                                       value="<?php echo $rows['address']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">Your optional address</th>
-                            <td><input type="text" name="address2" class="form-control-sm" value="<?php echo $rows['address2']; ?>"></td>
+                            <td><input type="text" name="address2" class="form-control-sm"
+                                       value="<?php echo $rows['address2']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">City</th>
-                            <td><input type="text" name="telnr" class="form-control-sm" value="<?php echo $rows['city']; ?>"></td>
+                            <td><input type="text" name="telnr" class="form-control-sm"
+                                       value="<?php echo $rows['city']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">Zip</th>
-                            <td><input type="text" name="telnr" class="form-control-sm" value="<?php echo $rows['zip']; ?>"></td>
+                            <td><input type="text" name="telnr" class="form-control-sm"
+                                       value="<?php echo $rows['zip']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
                             <th scope="row">Your telephone number</th>
-                            <td><input type="text" name="telnr" class="form-control-sm" value="<?php echo $rows['telnr']; ?>"></td>
+                            <td><input type="text" name="telnr" class="form-control-sm"
+                                       value="<?php echo $rows['telnr']; ?>"></td>
                             <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
+                        <tr>
+                            <td><input type="submit" class="btn btn-primary" name="submit"> </td>
+                        </tr>
+                        </form>
                         <?php
                         }
                         }

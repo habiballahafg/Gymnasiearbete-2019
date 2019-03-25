@@ -1,8 +1,54 @@
 <!--  Begin of footer  -->
 <hr>
-<footer class="col-lg text-center">
-    <p>All right reserved, &copy; Copyright 2019</p>
+<!-- Footer -->
+<footer class="page-footer font-small special-color-light pt-4">
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+                <h4>Social media:</h4>
+               <ul>
+                   <li>Facebook</li>
+                   <li>Instagram</li>
+                   <li>Twitter</li>
+                   <li>Youtube</li>
+               </ul>
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+
+                <form class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-white my-0" type="button">Sign up</button>
+                    </div>
+                </form>
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="index.php"> GyAr</a>
+    </div>
+    <!-- Copyright -->
+
 </footer>
+<!-- Footer -->
 </div>
 
 

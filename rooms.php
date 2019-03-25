@@ -23,7 +23,7 @@ $result = $conn->query($sql);
                 if ($rows['availability'] >= 1) {
                     $roomID = $rows['id'];
                     ?>
-                    <button class="btn btn-primary my-2 mx-2"><a href="booking.php?id=<?php echo $roomID ?>"
+                    <button class="btn btn-primary my-2 mx-2"><a href="booking.php"
                                                                  class="text-white" target="_blank">Book Now</a>
                     </button>
                     <?php
