@@ -123,8 +123,8 @@ if (isset($_POST['submit'])) {
      */
     if ($error === false) {
         $password = md5($password);
-        $sql = "INSERT INTO user(fullname, email, password, telnr, address, address2, zip, city, country)" . "  VALUES
-('$fullName' , '$email' , '$password' , '$telnr' , '$address' , '$address2' , '$zip' , '$city' , '$country')";
+        $sql = "INSERT INTO user(fullname, email, password, telnr, address, address2, zip, city, country, image, accesslevel)" . "  VALUES
+('$fullName' , '$email' , '$password' , '$telnr' , '$address' , '$address2' , '$zip' , '$city' , '$country', 'img-profile/user.png', 1)";
         if ($conn->query($sql) === true) {
             $succedMSG = "New record created successfully";
             $last_id = $conn->insert_id; // get the current user's id in order to use it in booking page
@@ -482,5 +482,4 @@ if (isset($_POST['submit'])) {
 
     <input type="submit" class="btn btn-primary" name="submit" value="Sign up">
 </form>
-<?php echo $sql ?>
 <?php include_once 'footer.php'; ?>

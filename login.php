@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
      * Send the sql query.
      */
     if ($error === false) {
-        $password = md5($password);
+        $password = md5('!@#$%^&*()' . $password . '!@#$%^&*()');
         $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
         $result = $conn->query($sql);
         if ($result->num_rows != 0){

@@ -25,13 +25,11 @@ if (isset($_SESSION['currentID'])) {
         $fullName = test_input($_POST['fullname']);
         $email = test_input($_POST['email']);
         $telnr = test_input($_POST['telnr']);
-        $password = test_input($_POST['password']);
         $address = test_input($_POST['address']);
         $address2 = test_input($_POST['address2']);
         $city = test_input($_POST['city']);
         $zip = test_input($_POST['zip']);
         $country = test_input($_POST['country']);
-        $agreement = test_input($_POST['agreement']);
 
         /**
          * Check the field name:
@@ -49,19 +47,12 @@ if (isset($_SESSION['currentID'])) {
                 $error = true;
                 $fullNameError = "Only letters are allowed.";
             }
-
         }
         /**
          * Check the email address field:
          */
-        $emailSQL = "SELECT email FROM user WHERE email = '$email'";
-        $emailRESULT = $conn->query($emailSQL);
-        if ($emailRESULT->num_rows > 0) {
-            $error = true;
-            $emailError = "the email is already in used, please choose another one.";
-        }
-        if (!empty($email)) {
 
+        if (!empty($email)) {
             if (empty($email)) {
                 $error = true;
                 $emailError = "The email field must be filled.";
@@ -86,16 +77,7 @@ if (isset($_SESSION['currentID'])) {
             $error = true;
             $telnrError = "The telepgone number field cannot be left empty";
         }
-        /**
-         * Check the password field:
-         */
-        if (!empty($password)) {
-            if (strlen($password) < 8) {
-                $error = true;
-                $passwordError = "The password cannot be less than 8 characters";
-            }
 
-        }
         /**
          * check the address field:
          */
@@ -122,37 +104,25 @@ if (isset($_SESSION['currentID'])) {
             $error = true;
             $zipError = "The postal code is required";
         }
-        /**
-         * Check the agreement
-         */
-        if (empty($agreement)) {
-            $error = true;
-            $agreementError = "The agreement must be checked";
-        }
 
         /**
          * check all errors are corrected now and submit them / insert them into the database
          * Table: user
          */
         if ($error === false) {
-            $password = md5($password);
             $sql = "UPDATE user SET fullname = '$fullName', email = '$email', telnr= '$telnr', address= '$address', 
             address2= '$address2', zip ='$zip', city = '$city', country='$country' WHERE id='$userID'";
+            echo $sql;
             if ($conn->query($sql) === true) {
                 $succedMSG = "Your information has been updated successfully.";
             } else {
                 $errorMSGr = "Error: " . $sql . "<br>" . mysqli_error($conn);
                 if ($conn->connect_errno) {
-
                     print_r($conn->connect_error);
-
                 }
             }
-
         }
-    }
-
-    ?>
+    } ?>
     <div class="row">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
@@ -170,20 +140,19 @@ if (isset($_SESSION['currentID'])) {
                     <div class="card" style="width: 18rem;">
                         <?php
                         $userSQL = "SELECT * FROM user WHERE id='$userID'";
-                        $userResult = $conn->query($userSQL);
-                        if ($userResult->num_rows != 0) {
-                        while ($userRows = $userResult->fetch_assoc()) {
-                        ?>
-                        <img class="card-img-top" src="img-profile/profile.jpg" alt="Card image cap">
+    $userResult = $conn->query($userSQL);
+    if ($userResult->num_rows != 0) {
+        while ($userRows = $userResult->fetch_assoc()) {
+            ?>
+                        <img class="card-img-top" src="img-profile/user-large.png" alt="Card image cap">
 
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $userRows['fullname'] ?></h5>
                             <p class="card-text">Lives
                                 at <?php echo $userRows['address'] . " " . $userRows['address2'] ?> </p>
                             <?php
-                            }
-                            }
-                            ?>
+        }
+    } ?>
 
                             <a href="explore.php" class="btn btn-primary">Explore Stockholm</a>
                         </div>
@@ -193,10 +162,10 @@ if (isset($_SESSION['currentID'])) {
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                     <?php
                     $orderSQL = "SELECT * FROM guest WHERE userID ='$userID'";
-                    $orderResult = $conn->query($orderSQL);
-                    if ($orderResult->num_rows != 0) {
-                        while ($orderRows = $orderResult->fetch_assoc()) {
-                            ?>
+    $orderResult = $conn->query($orderSQL);
+    if ($orderResult->num_rows != 0) {
+        while ($orderRows = $orderResult->fetch_assoc()) {
+            ?>
 
 
                             <div class="jumbotron">
@@ -205,20 +174,19 @@ if (isset($_SESSION['currentID'])) {
                                     <div class="col-3">
                                         <?php
                                         $roomID = $orderRows['roomID'];
-                                        $roomSQL = "SELECT * FROM room WHERE id='$roomID'";
-                                        $roomResult = $conn->query($roomSQL);
-                                        if ($roomResult->num_rows != 0) {
-                                        while ($roomRows = $roomResult->fetch_assoc()) {
-                                        ?>
+            $roomSQL = "SELECT * FROM room WHERE id='$roomID'";
+            $roomResult = $conn->query($roomSQL);
+            if ($roomResult->num_rows != 0) {
+                while ($roomRows = $roomResult->fetch_assoc()) {
+                    ?>
                                         <img class="img-fluid" src="<?php echo $roomRows['image'] ?>">
                                     </div>
                                     <div class="col-9">
                                         <h1><?php echo $roomRows['name'] ?></h1>
 
                                         <?php
-                                        }
-                                        }
-                                        ?>
+                }
+            } ?>
 
                                         <ul>
                                             <li>Check In: <?php echo $orderRows['checkin'] ?></li>
@@ -232,9 +200,8 @@ if (isset($_SESSION['currentID'])) {
                             </div>
 
                             <?php
-                        }
-                    }
-                    ?>
+        }
+    } ?>
                 </div>
 
                 <div class="tab-pane fade float-left col-8" id="list-messages" role="tabpanel"
@@ -245,11 +212,11 @@ if (isset($_SESSION['currentID'])) {
                         <tr id="table-edit">
                             <?php
                             $userID = $_SESSION['currentID'];
-                            $sql = "SELECT * FROM user WHERE id= '$userID'";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows != 0){
-                            while ($rows = $result->fetch_assoc()){
-                            ?>
+    $sql = "SELECT * FROM user WHERE id= '$userID'";
+    $result = $conn->query($sql);
+    if ($result->num_rows != 0) {
+        while ($rows = $result->fetch_assoc()) {
+            ?>
                             <form method="post" action="profile.php">
                                 <th scope="row">Your name</th>
                                 <td><input type="text" class=" form-control-sm" name="fullname"
@@ -315,9 +282,8 @@ if (isset($_SESSION['currentID'])) {
                         </tr>
                         </form>
                         <?php
-                        }
-                        }
-                        ?>
+        }
+    } ?>
                         </tbody>
                     </table>
                 </div>
@@ -326,8 +292,8 @@ if (isset($_SESSION['currentID'])) {
     </div>
     <?php
 } else {
-    header("Location: login.php");
-}
+        header("Location: login.php");
+    }
 ?>
 <script language="JavaScript">
     const editIcon = document.querySelector('.edit-icon');

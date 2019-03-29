@@ -1,5 +1,6 @@
 <?php 
-if (isset($_SESSION['currentID'])) { 
+session_start();
+if (isset($_SESSION['currentID'])) {
     unset($_SESSION['currentID']);
     header("Location: login.php");
 }
