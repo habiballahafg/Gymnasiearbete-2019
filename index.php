@@ -41,7 +41,7 @@ include_once 'header.php';
                 <article>
                     <h2><?php echo $rows['title'] ?></h2>
                     <img src="<?php echo $rows['img'] ?>" class="img-fluid" alt="<?php echo $rows['title'] ?>">
-                    <p class="font-weight-normal px-4 py-2"><?php echo $rows['post'] ?></p>
+                    <p class="font-weight-normal px-4 my-4 py-2"><?php echo $rows['post'] ?></p>
                     <footer class="float-left   x   ">
                         <button class="btn btn-primary text-white"><p class="float-left">Published
                                 on <?php echo $rows['articledate'] ?></p></button>

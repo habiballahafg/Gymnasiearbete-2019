@@ -1,5 +1,5 @@
 <!--  Begin of footer  -->
-<hr>
+<hr class="my-4">
 <!-- Footer -->
 <footer class="page-footer font-small special-color-light pt-4">
 
@@ -24,7 +24,7 @@
 
             <!--Grid column-->
             <div class="col-md-6 mb-4">
-
+                <h3>Subscripbe to our newsletter!</h3>
                 <form class="input-group">
                     <input type="text" class="form-control form-control-sm" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
                     <div class="input-group-append">
@@ -42,7 +42,7 @@
     <!-- Footer Elements -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <div class="footer-copyright text-center py-3">© <?php echo date('Y') ?> Copyright:
         <a href="index.php"> GyAr</a>
     </div>
     <!-- Copyright -->

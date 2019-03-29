@@ -15,7 +15,7 @@
     <img class="img-fluid" src="<?php echo $rows['img'] ?>">
     </div>
     <footer>
-                        <p class="float-left my-2">published on:  <?php echo $rows['articledate'] ?></>
+                        <p class="float-left my-2 btn btn-primary">published on:  <?php echo $rows['articledate'] ?></>
     </footer>
     <br>
     

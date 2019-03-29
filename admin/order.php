@@ -25,8 +25,17 @@
                                 ?>
                                 <tr>
                                     <td><?php echo $rows['id'] ?></td>
-                                    <td><a href="user.php?id=<?php echo $rows['userID'] ?>"><?php echo $rows['username'] ?></a></td>
-                                    <td><?php echo $rows['userOrder'] ?></td>
+                                    <td><a href="user.php?id=<?php echo $rows['userID'] ?>"><?php
+                                             $userID = $rows['userID'];
+                                            $userSQL = "SELECT * FROM user WHERE id='$userID'";
+                                            $result = $conn->query($userSQL);
+                                            if ($result->num_rows != 0) {
+                                                while ($userRows = $result->fetch_assoc()) {
+                                                    echo $userRows['fullname'];
+                                                }
+                                            }
+                                            ?></a></td>
+                                    <td class="text-uppercase "><?php echo $rows['userOrder'] ?></td>
                                     <td><?php echo $rows['checkin'];
                                         $todayDate = date("Y-m-d");
                                         $differenceDate = (strtotime($rows['checkin']) - strtotime($todayDate)) / 86400;
@@ -55,8 +64,24 @@
                                                 break;
                                         }
                                         ?></td>
-                                    <td><?php echo $rows['roomtype'] ?></td>
-                                    <td><?php echo $rows['roomnumber'] ?></td>
+                                    <td><?php
+                                        $roomID = $rows['roomID'];
+                                        switch ($roomID) {
+                                            case 1:
+                                                echo "Single Bed";
+                                                break;
+                                            case 2:
+                                                echo "Doyuble Bed";
+                                                break;
+                                            case 3:
+                                                echo "Triple Bed";
+                                                break;
+                                            default:
+                                                echo "Undefined";
+                                                break;
+                                        }
+                                    ?></td>
+                                    <td>Ask the receptionist </td>
                                 </tr>
                     <?php
                             }
@@ -65,8 +90,8 @@
 
                     </tbody>
                 </table>
+                <p>* About the progress</p>
                 <ul>
-                    <p>* About the progress</p>
                     <li>Await: It means we wait for the check in date. </li>
                     <li>In Progress: The costumer has been checked in successfully.</li>
                     <li>Completed: The costumer has checked out successfully.</li>

@@ -89,15 +89,12 @@ article {
     visibility: visible;
     opacity: 1;
 }
-a:after[target="_blank"] {
+
+
+.outlink:after{
     background: url("../img/new-tab.png");
     width: 30px;
     height: 30px;
-}
-
-.outlink:after {
-    content: "  (New tab will be opened)";
-    font-size: 0.7em;
 }
 
 .social-media {

@@ -112,7 +112,7 @@ if (isset($_SESSION['currentID'])) {
         if ($error === false) {
             $sql = "UPDATE user SET fullname = '$fullName', email = '$email', telnr= '$telnr', address= '$address', 
             address2= '$address2', zip ='$zip', city = '$city', country='$country' WHERE id='$userID'";
-            echo $sql;
+
             if ($conn->query($sql) === true) {
                 $succedMSG = "Your information has been updated successfully.";
             } else {
@@ -189,11 +189,11 @@ if (isset($_SESSION['currentID'])) {
             } ?>
 
                                         <ul>
-                                            <li>Check In: <?php echo $orderRows['checkin'] ?></li>
-                                            <li>Check Out: <?php echo $orderRows['checkout'] ?></li>
-                                            <li>Order number: <strong><?php echo $orderRows['userOrder'] ?></strong>            </li>
+                                            <li>Check In: <strong><?php echo $orderRows['checkin'] ?></strong></li>
+                                            <li>Check Out: <strong><?php echo $orderRows['checkout'] ?></strong></li>
+                                            <li>Order number: <strong class="text-uppercase"><?php echo $orderRows['userOrder'] ?></strong>            </li>
                                         </ul>
-                                        <p>Remember that the check in time is between 12-16.</p>
+                                        <p>Remember that the check in time is everyday between 12-16.</p>
                                         <button class="btn btn-primary"><a href="deleteorder.php?id=<?php echo $orderRows['id'] ?>" class="text-white">Cancel</a> </button>
                                     </div>
                                 </div>

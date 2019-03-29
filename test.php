@@ -1,3 +1,3 @@
-<?php
-echo md5("!@#$%^&*()" . "Blomma93" . "!@#$%^&*()");
+<?php 
+echo md5("Blomma93");
 ?>

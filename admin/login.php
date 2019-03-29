@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
      * Send the sql query.
      */
     if ($error === false) {
-        $password = md5("!@#$%^&*()". $password . "!@#$%^&*()");
+        $password = md5($password);
         $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
         $result = $conn->query($sql);
         if ($result->num_rows != 0){
@@ -65,8 +65,7 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <title>GyAr Booking System, Admin Area</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

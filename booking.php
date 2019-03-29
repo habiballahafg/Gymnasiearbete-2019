@@ -2,10 +2,9 @@
 
 include 'header.php';
 $roomName = $roomID = "";
-if (isset($_SESSION['currentID'])) { $currentID = test_input($_SESSION['currentID']); }
-
-
-
+if (isset($_SESSION['currentID'])) {
+    $currentID = test_input($_SESSION['currentID']);
+}
 
 
 /**
@@ -64,18 +63,30 @@ if (isset($_POST['submit'])) {
     if ($subtractingDates <= 0) {
         $error = true;
         $subtractingError = "The check out day must be bigger than check in date";
-    } else if ($subtractingDates == 0){
+    } else if ($subtractingDates == 0) {
         $error = true;
         $subtractingError = "Difference between check in and out dates must be at least 1 day.";
     }
 
     if ($error === false) {
-        $userOrder = generateRandomString(6);
-        $bookSql = "INSERT INTO guest(userID, roomID, userOrder, checkin, checkout, progress)" . "VALUES('$currentID', '$selectedRoom', '$userOrder', '$checkin', '$checkout', 0)";
-        if ($conn->query($bookSql) === true) {
-            $succesMSG = "We have registered your order successfully.";
-        } else {
-            $errorMSG = "There is a problem with placing your order, please contact us" . $conn->error;
+        $roomSQL = "SELECT * FROM room WHERE id= '$selectedRoom'";
+        $roomResult = $conn->query($roomSQL);
+        if ($roomResult->num_rows != 0) {
+            while ($roomRows = $roomResult->fetch_assoc()) {
+                $roomAvailable = $roomRows['availability'];
+                $roomAvailable -= 1;
+
+                $updateSQL = "UPDATE room SET availability= '$roomAvailable' WHERE id= '$selectedRoom'";
+                if ($conn->query($updateSQL) === true) {
+                    $userOrder = generateRandomString(6);
+                    $bookSql = "INSERT INTO guest(userID, roomID, userOrder, checkin, checkout, progress)" . "VALUES('$currentID', '$selectedRoom', '$userOrder', '$checkin', '$checkout', 0)";
+                    if ($conn->query($bookSql) === true) {
+                        $succesMSG = "We have registered your order successfully.";
+                    } else {
+                        $errorMSG = "There is a problem with placing your order, please contact us" . $conn->error;
+                    }
+                }
+            }
         }
     }
 }
@@ -112,7 +123,7 @@ if (isset($_POST['submit'])) {
                         <label class="label-info"><?php echo $rows['telnr'] ?></label>
                         <br>
                         <input type="submit" class="btn btn-primary" name="submit" value="Book! ">
-
+                        <br>
                         <label class="text text-success"><?php echo $succesMSG ?></label>
                         <label class="text text-danger"><?php echo $errorMSG ?></label>
                     </form>

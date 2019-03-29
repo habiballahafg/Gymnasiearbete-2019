@@ -50,7 +50,7 @@
                                                                         }
                                                                     }
                                                                     ?></td>
-                                                                <td><?php echo $rows['userOrder'] ?>
+                                                                <td class="text-uppercase"><?php echo $rows['userOrder'] ?>
                                                                 <td>Undefined</td>
                                                                 <td><?php
                                                                         $roomID = $rows['roomID'];
