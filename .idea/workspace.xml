@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc47587c-6f87-487d-975e-4951c2828b2e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin/newroom.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/article.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/room.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/room.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/newroom.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/newroom.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/newroom.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+            <state relative-caret-position="404">
+              <caret line="52" column="90" selection-start-line="52" selection-start-column="90" selection-end-line="52" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -303,7 +297,7 @@
       <workItem from="1553767766920" duration="2866000" />
       <workItem from="1553853049173" duration="2805000" />
       <workItem from="1553874839576" duration="7524000" />
-      <workItem from="1553896890797" duration="5621000" />
+      <workItem from="1553896890797" duration="6328000" />
     </task>
     <task id="LOCAL-00001" summary="Add the index file to the git">
       <created>1551025507536</created>
@@ -344,7 +338,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193671000" />
+    <option name="totallyTimeSpent" value="194378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
@@ -641,8 +635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/newroom.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+        <state relative-caret-position="404">
+          <caret line="52" column="90" selection-start-line="52" selection-start-column="90" selection-end-line="52" selection-end-column="90" />
         </state>
       </provider>
     </entry>

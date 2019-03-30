@@ -50,6 +50,8 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                                <label><?php if (isset($successMSG)) { echo $successMSG; } ?></label>
+                                <label><?php if (isset($errorMSG)) { echo $errorMSG; } ?></label>
                             </div>
                         </form>
                     </div>
