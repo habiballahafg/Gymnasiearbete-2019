@@ -160,23 +160,23 @@ if (isset($_SESSION['currentID'])) {
                                     class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link "
                                                 href="order.php" aria-expanded="false"><i
-                                    class="mdi mdi-receipt"></i><span class="hide-menu">Orders </span></a>
+                                    class="mdi mdi-cart"></i><span class="hide-menu">Orders </span></a>
                     </li>
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="article.php" aria-expanded="false"><i
-                                    class="mdi mdi-chart-bubble"></i><span class="hide-menu">Articles</span></a></li>
+                                    class="mdi mdi-receipt"></i><span class="hide-menu">Articles</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="user.php" aria-expanded="false"><i
-                                    class="mdi mdi-border-inside"></i><span class="hide-menu">Users</span></a></li>
+                                    class="mdi mdi-account-settings"></i><span class="hide-menu">Users</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="room.php" aria-expanded="false"><i
-                                    class="mdi mdi-blur-linear"></i><span class="hide-menu">Rooms</span></a></li>
+                                    class="mdi mdi-city"></i><span class="hide-menu">Rooms</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link "
                                                 href="settings.php" aria-expanded="false"><i
-                                    class="mdi mdi-receipt"></i><span class="hide-menu">Settings </span></a>
+                                    class="mdi mdi-settings"></i><span class="hide-menu">Settings </span></a>
                                     <li class="sidebar-item"><a class="sidebar-link "
                                                 href="logout.php" aria-expanded="false"><i
-                                    class="mdi mdi-receipt"></i><span class="hide-menu">Logout </span></a>
+                                    class="mdi mdi-logout-variant"></i><span class="hide-menu">Logout </span></a>
                     </li>
                     
                 </ul>

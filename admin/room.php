@@ -115,6 +115,7 @@ WHERE id='$roomID'";
                     <th>Image</th>
                     <th>Description</th>
                     <th>price</th>
+                    <th>Functions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -139,6 +140,8 @@ WHERE id='$roomID'";
                                      alt="<?php echo $roomRows['name'] ?>"></td>
                             <td><?php substr($roomRows['article'], 0, 100) ?></td>
                             <td>$<?php echo $roomRows['price'] ?> USD</td>
+                            <td><a class="my-2 btn btn-danger text-white" href="roomdelete.php?id=<?php echo $roomRows['id'] ?>">Delete Room</a>
+                            <a href="room.php?id=<?php echo $roomRows['id'] ?>" class="btn btn-primary text-white">Edit Room</a></td>
                         </tr>
                         <?php
         }
