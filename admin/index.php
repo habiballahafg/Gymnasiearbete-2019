@@ -285,10 +285,10 @@
                                                 <td><?php echo $userRows['address'] ?></td>
                                                 <td><?php echo $userRows['city'] ?></td>
                                                 <td><?php echo $userRows['country'] ?></td>
-                                                <td><a href="user.php?id=<?php echo $userRows['id'] ?>">
+                                                <td><a class="mx-2 my-2" href="user.php?id=<?php echo $userRows['id'] ?>">
                                                         <button class="btn btn-primary">Edit</button>
                                                     </a>
-                                                    <a href="userdelete.php?id=<?php echo $userRows['id'] ?>">
+                                                    <a class="mx-2 my-2" href="userdelete.php?id=<?php echo $userRows['id'] ?>">
                                                         <button class="btn btn-secondary">Delete</button>
                                                     </a>
                                                 </td>

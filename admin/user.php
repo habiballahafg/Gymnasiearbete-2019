@@ -101,13 +101,14 @@ if (isset($_GET['id'])) {
                                        class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="accesslevel">Access Level: (Enter either 1 or 2)</label>
+                                <label for="accesslevel">Access Level: </label>
                                 <label for="accesslevel"><?php if (isset($accesslevelError)) {
                                         echo $accesslevelError;
                                     } ?></label>
-                                <input type="text" name="accesslevel" id="accesslevel"
-                                       value="<?php echo $rows['accesslevel'] ?>"
-                                       class="form-control">
+                                <select name="accesslevel" class="form-control" id="accesslevel">
+                                    <option value="1">End User</option>
+                                    <option value="2">Admin</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Update">

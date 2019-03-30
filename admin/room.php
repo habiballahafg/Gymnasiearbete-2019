@@ -43,6 +43,7 @@ WHERE id='$roomID'";
                     <div class="card">
                         <div class="card-body">
                             <div class="d-md-flex align-items-center">
+                                <h3><a href="newroom.php" target="_blank">Click here if you want to make a new room</a></h3>
                                 <div>
                                     <h3>Edit Room</h3>
                                     <table class="table">
@@ -50,27 +51,27 @@ WHERE id='$roomID'";
                                         <form method="post" class="form-group">
                                             <tr>
                                                 <th>The room type</th>
-                                                <th><input type="text" class="form-control-sm" name="name"
+                                                <th><input type="text" class="form-control" name="name"
                                                            value="<?php echo $rows['name'] ?>"></th>
                                             </tr>
                                             <tr>
                                                 <th>Total number of this type</th>
-                                                <th><input type="text" class="form-control-sm" name="number"
+                                                <th><input type="text" class="form-control" name="number"
                                                            value="<?php echo $rows['number'] ?>"</th>
                                             </tr>
                                             <tr>
                                                 <th>Image Address</th>
-                                                <th><input type="text" class="form-control-sm" name="image"
+                                                <th><input type="text" class="form-control" name="image"
                                                            value="<?php echo $rows['image'] ?>"></th>
                                             </tr>
                                             <tr>
                                                 <th>Room Description</th>
-                                                <th><textarea name="description" id="descriotion" cols="100"
+                                                <th><textarea name="description" id="descriotion" class="form-control" cols="100"
                                                               rows="10"><?php echo $rows['article'] ?></textarea></th>
                                             </tr>
                                             <tr>
                                                 <th>Price</th>
-                                                <th><input type="text" class="form-control-sm" name="price"
+                                                <th><input type="text" class="form-control" name="price"
                                                            value="<?php echo $rows['price'] ?>"></th>
                                             </tr>
                                             <tr>
@@ -117,6 +118,8 @@ WHERE id='$roomID'";
                 </tr>
                 </thead>
                 <tbody>
+
+                <h3><a href="newroom.php" target="_blank">Click here if you want to make a new room</a></h3>
                 <?php
                 $roomSQL = "SELECT * FROM room";
     $roomResult = $conn->query($roomSQL);

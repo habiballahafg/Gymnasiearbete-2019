@@ -33,6 +33,7 @@ if (isset($_POST['update-article'])) {
     /* Update the Database Query if $error is FALSE */
 
     if ($error === false) {
+        $articleID = $_POST['id'];
         $time = date('Y-m-d');
         $sql = "UPDATE article SET title='$title', post='$post', articledate= '$time' WHERE id='$articleID'";
         if ($conn->query($sql) === true) {
@@ -69,7 +70,7 @@ if (isset($_POST['publish'])) {
 
     if ($error === false) {
         $time = date('Y-m-d');
-        $sql = "INSERT INTO article(title, post, articledate) VALUES ('$title', '$post', '$time')";
+        $sql = "INSERT INTO article(title,img, post, articledate) VALUES ('$title', 'img/article.jpg', '$post', '$time')";
         if ($conn->query($sql) === true) {
             $successMSG = "The post has been published successfully.";
         } // end successMSG
@@ -110,15 +111,24 @@ if (isset($_SESSION['currentID'])) {
                     while ($rows = $result->fetch_assoc()) {
                         ?>
 
-                        <h1>Edit Article <?php echo $rows['title'] ?></h1>
+                        <h1 class="title">Edit Article <?php echo $rows['title'] ?></h1>
                         <form method="post" action="article.php" class="form-group">
-                            <label class="col-form-label" for="title">Title: </label>
-                            <input type="text" class="form-control-sm" name="title" value="<?php echo $rows['title'] ?>"
-                                   id="title" placeholder="title">
-                            <br>
-                            <textarea name="post" id="mytextarea"><?php echo $rows['post'] ?></textarea>
-                            <br>
-                            <input type="submit" name="update-article" value="Publish" class="btn btn-primary">
+                            <div class="form-group">
+                                <label for="id">ID:</label>
+                                <input type="text" name="id" id="id" value="<?php echo $articleID ?>">
+                            </div>
+                            <div class="form-group row">
+                                <label class="mx-2" for="title">Title: </label>
+                                <input type="text" class="mx-2 form-control" name="title"
+                                       value="<?php echo $rows['title'] ?>"
+                                       id="title">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="post" id="mytextarea"><?php echo $rows['post'] ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="update-article" value="Publish" class="btn btn-primary">
+                            </div>
                         </form>
 
                         <?php
@@ -132,16 +142,22 @@ if (isset($_SESSION['currentID'])) {
                 ?>
 
                 <h1>New Article</h1>
-                <form method="post" action="article.php" class="form-group">
-                    <label class="label ">Title</label>
-                    <input type="text" class="form-control-sm" name="title">
-                    <br>
-                    <label class="text text-danger" for="mytextarea"><?php echo $postError ?></label>
-                    <textarea id="mytextarea" class="form-control" name="post">Hello, World!</textarea>
-                    <br>
-                    <label class="text text-success"><?php echo $successMSG ?></label>
-                    <label class="text text-danger"><?php echo $errorMSG ?></label>
-                    <input type="submit" name="publish" value="Publish" class="btn btn-primary">
+
+                <form method="post" action="article.php">
+
+                    <div class="form-group row">
+                        <label class="col-sm=2 mx-2" for="title">Title</label>
+                        <input type="text" class="mx-2 form-control col-sm-9" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label class="text text-danger" for="mytextarea"><?php echo $postError ?></label>
+                        <textarea id="mytextarea" class="form-control" name="post">Hello, World!</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="text text-success"><?php echo $successMSG ?></label>
+                        <label class="text text-danger"><?php echo $errorMSG ?></label>
+                        <input type="submit" name="publish" value="Publish" class="btn btn-primary">
+                    </div>
                 </form>
 
                 <?php
