@@ -11,7 +11,11 @@ if (isset($_GET['id'])) {
 }
 if (isset($_POST['update-article'])) {
 
+    $target_dir = "../img/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $uploadError = "";
     /* Check out the title  */
     if (isset($_POST['title'])) {
         $title = test_input($_POST['title']);
@@ -31,16 +35,34 @@ if (isset($_POST['update-article'])) {
     }
 
     /* Update the Database Query if $error is FALSE */
+// Check if file already exists
+    if (file_exists($target_file)) {
+        $uploadError = "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+// Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        $uploadError = "Sorry, your file is too large.";
+        $error = true;
+    }
+// Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif") {
+        $uploadError = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $error = true;
+    }
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        $target_file = "img/" . basename($_FILES["fileToUpload"]["name"]);
+        if ($error === false) {
+            $articleID = $_POST['id'];
+            $time = date('Y-m-d');
+            $sql = "UPDATE article SET title='$title', img = '$target_file', post='$post', articledate= '$time' WHERE id='$articleID'";
+            if ($conn->query($sql) === true) {
+                $successMSG = "The article has been updated successfully.";
 
-    if ($error === false) {
-        $articleID = $_POST['id'];
-        $time = date('Y-m-d');
-        $sql = "UPDATE article SET title='$title', post='$post', articledate= '$time' WHERE id='$articleID'";
-        if ($conn->query($sql) === true) {
-            $successMSG = "The article has been updated successfully.";
-
-        } else {
-            $errorMSG = "The article could not be updated, please try again later.";
+            } else {
+                $errorMSG = "The article could not be updated, please try again later.";
+            }
         }
     }
 } //end updating article
@@ -51,6 +73,11 @@ if (isset($_POST['publish'])) {
     $error = false;
     $successMSG = $errorMSG = "";
     $time = "";
+    $target_dir = "../img/";
+    $target_file = $target_dir . basename($_FILES["imegeUpload"]["name"]);
+
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $uploadError = "";
     if (isset($_POST['title'])) {
         $title = test_input($_POST['title']);
         if (empty($title)) {
@@ -67,15 +94,33 @@ if (isset($_POST['publish'])) {
             $postError = "The post field is required.";
         }
     } // end checking the post
-
-    if ($error === false) {
-        $time = date('Y-m-d');
-        $sql = "INSERT INTO article(title,img, post, articledate) VALUES ('$title', 'img/article.jpg', '$post', '$time')";
-        if ($conn->query($sql) === true) {
-            $successMSG = "The post has been published successfully.";
-        } // end successMSG
-        else {
-            $errorMSG = "There was a problem, please try again.";
+// Check if file already exists
+    if (file_exists($target_file)) {
+        $uploadError = "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+// Check file size
+    if ($_FILES["imegeUpload"]["size"] > 500000) {
+        $uploadError = "Sorry, your file is too large.";
+        $error = true;
+    }
+// Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif") {
+        $uploadError = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $error = true;
+    }
+    if (move_uploaded_file($_FILES["imegeUpload"]["tmp_name"], $target_file)) {
+        $target_file = "img/" . basename($_FILES["imegeUpload"]["name"]);
+        if ($error === false) {
+            $time = date('Y-m-d');
+            $sql = "INSERT INTO article(title,img, post, articledate) VALUES ('$title', '$target_file', '$post', '$time')";
+            if ($conn->query($sql) === true) {
+                $successMSG = "The post has been published successfully.";
+            } // end successMSG
+            else {
+                $errorMSG = "There was a problem, please try again.";
+            }
         }
     }
 
@@ -112,7 +157,7 @@ if (isset($_SESSION['currentID'])) {
                         ?>
 
                         <h1 class="title">Edit Article <?php echo $rows['title'] ?></h1>
-                        <form method="post" action="article.php" class="form-group">
+                        <form method="post" action="article.php" enctype="multipart/form-data" class="form-group">
                             <div class="form-group">
                                 <label for="id">ID:</label>
                                 <input type="text" name="id" id="id" value="<?php echo $articleID ?>">
@@ -125,6 +170,10 @@ if (isset($_SESSION['currentID'])) {
                             </div>
                             <div class="form-group">
                                 <textarea name="post" id="mytextarea"><?php echo $rows['post'] ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="fileToUpload">Image</label>
+                                <input type="file" name="fileToUpload" id="fileToUpload">
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="update-article" value="Publish" class="btn btn-primary">
@@ -143,7 +192,7 @@ if (isset($_SESSION['currentID'])) {
 
                 <h1>New Article</h1>
 
-                <form method="post" action="article.php">
+                <form method="post" action="article.php" enctype="multipart/form-data">
 
                     <div class="form-group row">
                         <label class="col-sm=2 mx-2" for="title">Title</label>
@@ -154,8 +203,13 @@ if (isset($_SESSION['currentID'])) {
                         <textarea id="mytextarea" class="form-control" name="post">Hello, World!</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="imageUpload">Upload: </label>
+                        <input type="file" name="imegeUpload" class="form-control" id="imageUpload">
+                    </div>
+                    <div class="form-group">
                         <label class="text text-success"><?php echo $successMSG ?></label>
                         <label class="text text-danger"><?php echo $errorMSG ?></label>
+                        <br>
                         <input type="submit" name="publish" value="Publish" class="btn btn-primary">
                     </div>
                 </form>

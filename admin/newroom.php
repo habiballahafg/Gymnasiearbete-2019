@@ -5,9 +5,9 @@ $error = false;
 $successMSG = $errorMSG = "";
 
 if (isset($_POST['submit'])) {
-    $target_dir = "img/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
+    $target_dir = "../img/";
+    $target_file =  $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $uploadError = "";
     /**
@@ -20,13 +20,7 @@ if (isset($_POST['submit'])) {
 
 
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if ($check !== false) {
-        $uploadError = "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        $uploadError = "File is not an image.";
-        $uploadOk = 0;
-    }
+
 
 // Check if file already exists
     if (file_exists($target_file)) {
@@ -36,16 +30,16 @@ if (isset($_POST['submit'])) {
 // Check file size
     if ($_FILES["fileToUpload"]["size"] > 500000) {
         $uploadError = "Sorry, your file is too large.";
-        $uploadOk = 0;
+       $error = true;
     }
 // Allow certain file formats
     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif") {
         $uploadError = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
+       $error = true;
     }
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-
+            $target_file = "img/" . basename($_FILES["fileToUpload"]["name"]);
         if ($error === false) {
             $sql = "INSERT INTO room(name, number, availability, image, article, price)"
                 . "VALUES ('$name', '$number', '$number', '$target_file', '$article', '$price')";
@@ -66,7 +60,7 @@ if (isset($_POST['submit'])) {
             <div class="card-body col-md-12">
                 <div class=" align-items-center">
                     <div>
-                        <form action="newroom.php" method="post">
+                        <form action="newroom.php" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="name">Name:</label>
                                 <label for="name"><?php if (isset($nameError)) {
@@ -96,10 +90,11 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="submit" value="Submit" class="btn btn-primary">
-                                <label><?php if (isset($successMSG)) {
+                                <br>
+                                <label class="text text-success"><?php if (isset($successMSG)) {
                                         echo $successMSG;
                                     } ?></label>
-                                <label><?php if (isset($errorMSG)) {
+                                <label class="text text-danger"><?php if (isset($errorMSG)) {
                                         echo $errorMSG;
                                     } ?></label>
                             </div>

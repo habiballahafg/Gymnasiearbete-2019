@@ -19,6 +19,12 @@ if (isset($_SESSION['currentID'])) {
     $sql = "";
     if (isset($_POST['submit'])) {
 
+        $target_dir = "img-profile/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $uploadError = "";
+
         /**
          * Securing the input
          */
@@ -104,21 +110,48 @@ if (isset($_SESSION['currentID'])) {
             $error = true;
             $zipError = "The postal code is required";
         }
+        /**
+         * Check the profile image
+         */
+
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+
+
+// Check if file already exists
+        if (file_exists($target_file)) {
+            $uploadError = "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+// Check file size
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            $uploadError = "Sorry, your file is too large.";
+            $error = true;
+        }
+// Allow certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif") {
+            $uploadError = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $error = true;
+        }
+
 
         /**
          * check all errors are corrected now and submit them / insert them into the database
          * Table: user
          */
-        if ($error === false) {
-            $sql = "UPDATE user SET fullname = '$fullName', email = '$email', telnr= '$telnr', address= '$address', 
-            address2= '$address2', zip ='$zip', city = '$city', country='$country' WHERE id='$userID'";
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 
-            if ($conn->query($sql) === true) {
-                $succedMSG = "Your information has been updated successfully.";
-            } else {
-                $errorMSGr = "Error: " . $sql . "<br>" . mysqli_error($conn);
-                if ($conn->connect_errno) {
-                    print_r($conn->connect_error);
+            if ($error === false) {
+                $sql = "UPDATE user SET fullname = '$fullName', email = '$email', telnr= '$telnr', address= '$address', 
+            address2= '$address2', zip ='$zip', city = '$city', country='$country', image = '$target_file' WHERE id='$userID'";
+
+                if ($conn->query($sql) === true) {
+                    $succedMSG = "Your information has been updated successfully.";
+                } else {
+                    $errorMSGr = "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    if ($conn->connect_errno) {
+                        print_r($conn->connect_error);
+                    }
                 }
             }
         }
@@ -140,19 +173,19 @@ if (isset($_SESSION['currentID'])) {
                     <div class="card" style="width: 18rem;">
                         <?php
                         $userSQL = "SELECT * FROM user WHERE id='$userID'";
-    $userResult = $conn->query($userSQL);
-    if ($userResult->num_rows != 0) {
-        while ($userRows = $userResult->fetch_assoc()) {
-            ?>
-                        <img class="card-img-top" src="img-profile/user-large.png" alt="Card image cap">
+                        $userResult = $conn->query($userSQL);
+                        if ($userResult->num_rows != 0) {
+                        while ($userRows = $userResult->fetch_assoc()) {
+                        ?>
+                        <img class="card-img-top" src="<?php echo $userRows['image'] ?>" alt="Card image cap">
 
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $userRows['fullname'] ?></h5>
                             <p class="card-text">Lives
                                 at <?php echo $userRows['address'] . " " . $userRows['address2'] ?> </p>
                             <?php
-        }
-    } ?>
+                            }
+                            } ?>
 
                             <a href="explore.php" class="btn btn-primary">Explore Stockholm</a>
                         </div>
@@ -162,10 +195,10 @@ if (isset($_SESSION['currentID'])) {
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                     <?php
                     $orderSQL = "SELECT * FROM guest WHERE userID ='$userID'";
-    $orderResult = $conn->query($orderSQL);
-    if ($orderResult->num_rows != 0) {
-        while ($orderRows = $orderResult->fetch_assoc()) {
-            ?>
+                    $orderResult = $conn->query($orderSQL);
+                    if ($orderResult->num_rows != 0) {
+                        while ($orderRows = $orderResult->fetch_assoc()) {
+                            ?>
 
 
                             <div class="jumbotron">
@@ -174,34 +207,38 @@ if (isset($_SESSION['currentID'])) {
                                     <div class="col-3">
                                         <?php
                                         $roomID = $orderRows['roomID'];
-            $roomSQL = "SELECT * FROM room WHERE id='$roomID'";
-            $roomResult = $conn->query($roomSQL);
-            if ($roomResult->num_rows != 0) {
-                while ($roomRows = $roomResult->fetch_assoc()) {
-                    ?>
+                                        $roomSQL = "SELECT * FROM room WHERE id='$roomID'";
+                                        $roomResult = $conn->query($roomSQL);
+                                        if ($roomResult->num_rows != 0) {
+                                        while ($roomRows = $roomResult->fetch_assoc()) {
+                                        ?>
                                         <img class="img-fluid" src="<?php echo $roomRows['image'] ?>">
                                     </div>
                                     <div class="col-9">
                                         <h1><?php echo $roomRows['name'] ?></h1>
 
                                         <?php
-                }
-            } ?>
+                                        }
+                                        } ?>
 
                                         <ul>
                                             <li>Check In: <strong><?php echo $orderRows['checkin'] ?></strong></li>
                                             <li>Check Out: <strong><?php echo $orderRows['checkout'] ?></strong></li>
-                                            <li>Order number: <strong class="text-uppercase"><?php echo $orderRows['userOrder'] ?></strong>            </li>
+                                            <li>Order number: <strong
+                                                        class="text-uppercase"><?php echo $orderRows['userOrder'] ?></strong>
+                                            </li>
                                         </ul>
                                         <p>Remember that the check in time is everyday between 12-16.</p>
-                                        <button class="btn btn-primary"><a href="deleteorder.php?id=<?php echo $orderRows['id'] ?>" class="text-white">Cancel</a> </button>
+                                        <button class="btn btn-primary"><a
+                                                    href="deleteorder.php?id=<?php echo $orderRows['id'] ?>"
+                                                    class="text-white">Cancel</a></button>
                                     </div>
                                 </div>
                             </div>
 
                             <?php
-        }
-    } ?>
+                        }
+                    } ?>
                 </div>
 
                 <div class="tab-pane fade float-left col-8" id="list-messages" role="tabpanel"
@@ -212,19 +249,19 @@ if (isset($_SESSION['currentID'])) {
                         <tr id="table-edit">
                             <?php
                             $userID = $_SESSION['currentID'];
-    $sql = "SELECT * FROM user WHERE id= '$userID'";
-    $result = $conn->query($sql);
-    if ($result->num_rows != 0) {
-        while ($rows = $result->fetch_assoc()) {
-            ?>
-                            <form method="post" action="profile.php">
+                            $sql = "SELECT * FROM user WHERE id= '$userID'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows != 0) {
+                            while ($rows = $result->fetch_assoc()) {
+                            ?>
+                            <form method="post" action="profile.php" enctype="multipart/form-data">
                                 <th scope="row">Your name</th>
-                                <td><input type="text" class=" form-control-sm" name="fullname"
-                                           value="<?php echo $rows['fullname'] ?>"></td>
-                                <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
-                                    <input type="submit" name="fullNameSubmit" class="btn btn-primary confirm-icon">
-                                </td>
-                                <td class="text text-danger"><?php echo $fullNameError ?></td>
+                            <td><input type="text" class=" form-control-sm" name="fullname"
+                                       value="<?php echo $rows['fullname'] ?>"></td>
+                            <td><img src="img/edit.svg" class="img-icon edit-icon" alt="Edit your name">
+                                <input type="submit" name="fullNameSubmit" class="btn btn-primary confirm-icon">
+                            </td>
+                            <td class="text text-danger"><?php echo $fullNameError ?></td>
 
                         </tr>
                         <tr>
@@ -278,12 +315,16 @@ if (isset($_SESSION['currentID'])) {
                                 <img src="img/confirm.png" class="img-icon confirm-icon" alt="Confirm"></td>
                         </tr>
                         <tr>
+                            <td>Image Profile:</td>
+                            <td><input type="file" name="fileToUpload" id="fileToUpload"></td>
+                        </tr>
+                        <tr>
                             <td><input type="submit" class="btn btn-primary" name="submit"></td>
                         </tr>
                         </form>
                         <?php
-        }
-    } ?>
+                        }
+                        } ?>
                         </tbody>
                     </table>
                 </div>
@@ -292,8 +333,8 @@ if (isset($_SESSION['currentID'])) {
     </div>
     <?php
 } else {
-        header("Location: login.php");
-    }
+    header("Location: login.php");
+}
 ?>
 <script language="JavaScript">
     const editIcon = document.querySelector('.edit-icon');
