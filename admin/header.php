@@ -31,9 +31,18 @@ if (isset($_SESSION['currentID'])) {
     <!-- Custom CSS -->
     <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=7zrhbbtirxkyilgs6ctvb5o01j5wvsmd7hj4hwdrkgts7mum'></script>
     <script>
+
         tinymce.init({
-            selector: '#mytextarea'
+            /* replace textarea having class .tinymce with tinymce editor */
+            selector: "#mytextarea",
         });
+        $(document).ready(function() {
+            $('form').submit(function() {
+                //alert("fasdfs");
+                tinymce.get('mytextarea').getContent();
+            });
+        });
+
     </script>
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
