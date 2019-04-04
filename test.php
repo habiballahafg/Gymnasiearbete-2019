@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hello World</title>
-</head>
-<body>
-<form method="post"
-</body>
-</html>
+<?php
+echo md5("demo");
+?>

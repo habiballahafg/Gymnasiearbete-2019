@@ -104,6 +104,7 @@ WHERE id='$roomID'";
             <h2>Rooms: </h2>
         </div>
         <div class="card-body">
+            <h3><a href="newroom.php" target="_blank">Click here if you want to make a new room</a></h3>
             <table div class="table">
                 <thead>
                 <tr>
@@ -119,8 +120,6 @@ WHERE id='$roomID'";
                 </tr>
                 </thead>
                 <tbody>
-
-                <h3><a href="newroom.php" target="_blank">Click here if you want to make a new room</a></h3>
                 <?php
                 $roomSQL = "SELECT * FROM room";
     $roomResult = $conn->query($roomSQL);
